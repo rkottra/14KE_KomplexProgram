@@ -1,0 +1,61 @@
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+</mat-paginator>
+
+<table mat-table [dataSource]="adatforras">
+    <ng-container matColumnDef="idColumn">
+        <th mat-header-cell *matHeaderCellDef> Id. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nevColumn">
+        <th mat-header-cell *matHeaderCellDef> Név </th>
+        <td mat-cell *matCellDef="let element"> {{element.nev}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="arColumn">
+        <th mat-header-cell *matHeaderCellDef> Ár </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.nettoAr}}.-Ft + {{element.afa}}% áfa =
+             {{element.nettoAr*(1+(element.afa/100.0))}}.-Ft
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dbColumn">
+        <th mat-header-cell *matHeaderCellDef> db </th>
+        <td mat-cell *matCellDef="let element"> 
+            <!--<input type="number" [(ngModel)]="darabok[element.id]" /> -->
+            <input type="number" [(ngModel)]="element.darab" />
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="kepColumn">
+        <th mat-header-cell *matHeaderCellDef> Kép </th>
+        <td mat-cell *matCellDef="let element"> 
+            <img src="{{element.kepUrl}}" alt="" style="width:100px"/> 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="osszArColumn">
+        <th mat-header-cell *matHeaderCellDef> Összesen </th>
+        <td mat-cell *matCellDef="let element"> 
+            <!--{{element.nettoAr*(1+(element.afa/100.0)) 
+                * darabok[element.id]}} .-Ft-->
+            {{element.nettoAr*(1+(element.afa/100.0)) 
+                * element.darab}} .-Ft
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="funkcioColumn">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element"> 
+            <input type="button" value="Módosítás"/>
+            <input type="button" value="Törlés"/>
+        </td>
+    </ng-container>
+
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
