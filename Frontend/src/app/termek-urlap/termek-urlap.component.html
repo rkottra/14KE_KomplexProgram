@@ -1,0 +1,13 @@
+
+
+
+<input type="text" [(ngModel)]="product.nev" /><br/>
+<input type="text" [(ngModel)]="product.nettoAr" /><br/>
+<input type="text" [(ngModel)]="product.afa" /><br/>
+<input type="text" [(ngModel)]="product.kepUrl" /><br/>
+
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Mégse</button>
+    <button mat-button [mat-dialog-close]="product" cdkFocusInitial>Mentés</button>
+</div>

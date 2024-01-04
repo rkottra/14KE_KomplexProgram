@@ -7,21 +7,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule }   from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 import { TermekListaComponent } from './termek-lista/termek-lista.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { TermekUrlapComponent } from './termek-urlap/termek-urlap.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TermekListaComponent
+    TermekListaComponent,
+    TermekUrlapComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatButtonModule,
     MatTableModule,
+    MatDialogModule,
     MatPaginatorModule,
     HttpClientModule,
     FormsModule

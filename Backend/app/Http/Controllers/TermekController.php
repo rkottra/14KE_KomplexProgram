@@ -37,7 +37,11 @@ class TermekController extends Controller
      */
     public function update(UpdateTermekRequest $request, Termek $termek)
     {
-        //
+        $termek->nev = $request->nev;
+        $termek->nettoAr = $request->nettoAr;
+        $termek->afa = $request->afa;
+        $termek->kepUrl = $request->kepUrl;
+        $termek->save();
     }
 
     /**
@@ -45,6 +49,6 @@ class TermekController extends Controller
      */
     public function destroy(Termek $termek)
     {
-        //
+        return $termek->delete();
     }
 }
