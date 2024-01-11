@@ -49,11 +49,12 @@ export class TermekListaComponent {
             'arColumn', 'dbColumn', 'osszArColumn',
             'kepColumn', 'funkcioColumn'];
 
-    //public darabok:number[] = [];
-
     @ViewChild(MatPaginator) paginator: any;
     
-    constructor(private szerviz:TermekService, private _snackBar: MatSnackBar, public dialog: MatDialog) {
+    constructor(private szerviz:TermekService, 
+                private _snackBar: MatSnackBar, 
+                public dialog: MatDialog)
+    {
         this.szerviz.listTermekek().subscribe(
           (dataFromBackend) => {
             this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
@@ -64,11 +65,42 @@ export class TermekListaComponent {
     }
 
     updateClick(element:TermekModel) {
-      const dialogRef = this.dialog.open(TermekUrlapComponent, {data: element});
+      let masolat = {...element};
+      /*let masolat = {
+        id: element.id,
+        nev: element.nev,
+        nettoAr: element.nettoAr,
+        afa: element.afa,
+        kepUrl: element.kepUrl,
+        db: element.db,
+      };*/
+
+      const dialogRef = this.dialog.open(TermekUrlapComponent, {data: masolat});
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result !== "") {
-          this.szerviz.updateTermek(element).subscribe();
+          this.szerviz.updateTermek(masolat).subscribe(
+              (ModositottTermek:TermekModel) => {
+                if (ModositottTermek.nev && ModositottTermek.nev === masolat.nev) {
+                  
+                  this._snackBar.open("Sikeres módosítás: "+ModositottTermek.nev, "", {
+                    duration: 2000,
+                  });
+    
+                  this.szerviz.listTermekek().subscribe(
+                    (dataFromBackend) => {
+                      this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
+                      this.adatforras.paginator = this.paginator;
+                    }
+                  );
+    
+                } else {
+                  this._snackBar.open("Nem sikerült a módosítás: "+masolat.nev, "", {
+                    duration: 2000,
+                  });
+                }
+              }
+          );
         }
       })
     }
@@ -110,5 +142,43 @@ export class TermekListaComponent {
               })
           }
         });
+    }
+
+    insertClick() {
+      let ujElem = {
+        nev: "",
+        nettoAr: 100,
+        afa: 27,
+        kepUrl: "",
+      };
+
+      const dialogRef = this.dialog.open(TermekUrlapComponent, {data: ujElem});
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result !== "") {
+          this.szerviz.insertTermek(ujElem as TermekModel).subscribe(
+              (ujTermek:TermekModel) => {
+                if (ujTermek.nev && ujTermek.nev === ujElem.nev) {
+                  
+                  this._snackBar.open("Sikeres új termék létrehozás: "+ujTermek.nev, "", {
+                    duration: 2000,
+                  });
+    
+                  this.szerviz.listTermekek().subscribe(
+                    (dataFromBackend) => {
+                      this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
+                      this.adatforras.paginator = this.paginator;
+                    }
+                  );
+    
+                } else {
+                  this._snackBar.open("Nem sikerült az új termék létrehozása: "+ujElem.nev, "", {
+                    duration: 2000,
+                  });
+                }
+              }
+          );
+        }
+      })
     }
 }

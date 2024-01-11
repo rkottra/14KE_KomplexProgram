@@ -34,4 +34,8 @@ export class TermekService {
     return this.backend.put<TermekModel>(this.url+"/"+termek.id, termek);
   }
 
+  insertTermek(termek:TermekModel):Observable<TermekModel> {
+    return this.backend.post<TermekModel>(this.url, termek);
+  }
+
 }

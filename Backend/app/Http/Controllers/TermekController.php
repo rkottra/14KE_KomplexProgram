@@ -21,7 +21,15 @@ class TermekController extends Controller
      */
     public function store(StoreTermekRequest $request)
     {
-        //
+        $termek = new Termek();
+        
+        $termek->nev        = $request->nev;
+        $termek->nettoAr    = $request->nettoAr;
+        $termek->afa        = $request->afa;
+        $termek->kepUrl     = $request->kepUrl;
+        $termek->save();
+        return $termek;
+
     }
 
     /**
@@ -37,11 +45,12 @@ class TermekController extends Controller
      */
     public function update(UpdateTermekRequest $request, Termek $termek)
     {
-        $termek->nev = $request->nev;
-        $termek->nettoAr = $request->nettoAr;
-        $termek->afa = $request->afa;
-        $termek->kepUrl = $request->kepUrl;
+        $termek->nev        = $request->nev;
+        $termek->nettoAr    = $request->nettoAr;
+        $termek->afa        = $request->afa;
+        $termek->kepUrl     = $request->kepUrl;
         $termek->save();
+        return $termek;
     }
 
     /**
