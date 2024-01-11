@@ -19,7 +19,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 use App\Http\Controllers\TermekController;
+use App\Http\Controllers\LoginController;
 
 Route::resource("termek", 
     TermekController::class)
-    ->except(["edit", "create"]);
+    ->only(["index", "show"]);
+
+
+Route::middleware('auth:sanctum')->resource("termek", 
+    TermekController::class)
+    ->except(["edit", "create", "index" ,"show"]);
+
+Route::post("login",  [LoginController::class, 'login']);
+Route::post("register",  [LoginController::class, 'register']);
+Route::post("logout", [LoginController::class, 'logout']);

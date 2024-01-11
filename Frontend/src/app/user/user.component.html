@@ -1,0 +1,10 @@
+<fieldset>
+    <legend>Login</legend>
+
+    <label>Username:</label>
+    <input type="text" [(ngModel)]="user.email" />
+    <label>Password:</label>
+    <input type="passowrd" [(ngModel)]="user.password" />
+
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+</fieldset>

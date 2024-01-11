@@ -16,12 +16,14 @@ import { TermekListaComponent } from './termek-lista/termek-lista.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { TermekUrlapComponent } from './termek-urlap/termek-urlap.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TermekListaComponent,
-    TermekUrlapComponent
+    TermekUrlapComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

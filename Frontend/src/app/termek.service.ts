@@ -16,18 +16,27 @@ export class TermekService {
   constructor(private backend:HttpClient) { }
 
   public listTermekek():Observable<TermekModel[]> {
+    let token = localStorage.getItem("token");
     return this.backend
-        .get<TermekModel[]>(this.url);
+          .get<TermekModel[]>(this.url,{headers: {
+             "Authorization": "Bearer "+token
+            }
+          })
 
-        /*    .subscribe( 
-      (dataFromBackend) => {
-        this.termekek = dataFromBackend;
-      }
-    )*/
-  }
+          /*    .subscribe( 
+        (dataFromBackend) => {
+          this.termekek = dataFromBackend;
+        }
+      )*/
+    }
 
   deleteTermek(termek:TermekModel):Observable<boolean> {
-      return this.backend.delete<boolean>(this.url+"/"+termek.id);
+    let token = localStorage.getItem("token");
+
+      return this.backend.delete<boolean>(this.url+"/"+termek.id,{headers: {
+        "Authorization": "Bearer "+token
+       }
+      });
   }
 
   updateTermek(termek:TermekModel):Observable<TermekModel> {
