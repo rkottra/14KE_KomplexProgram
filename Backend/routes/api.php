@@ -21,15 +21,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 use App\Http\Controllers\TermekController;
 use App\Http\Controllers\LoginController;
 
-Route::resource("termek", 
-    TermekController::class)
-    ->only(["index", "show"]);
+// nem kell  hozzá jogosultság:
+// GET típusú lekérések
+Route::resource("termek", TermekController::class)->only(["index", "show"]);
+
+// kell  hozzá jogosultság:
+// POST/PUT/PATCH/DELETE típusú lekérések
+/*Route::middleware('auth:sanctum')->resource("termek", TermekController::class)
+    ->except(["edit", "create", "index" ,"show"]);*/
+/*Route::middleware('auth:sanctum')->resource("termek", TermekController::class)
+    ->only(["destroy", "update", "store"]);*/
+
+Route::middleware('auth:sanctum')->resource("termek", TermekController::class)
+    ->only(["destroy", "update"]);
+
+Route::middleware(['auth:sanctum', 'ability:superuser'])->resource("termek", TermekController::class)
+    ->only(["store"]);
 
 
-Route::middleware('auth:sanctum')->resource("termek", 
-    TermekController::class)
-    ->except(["edit", "create", "index" ,"show"]);
 
-Route::post("login",  [LoginController::class, 'login']);
-Route::post("register",  [LoginController::class, 'register']);
-Route::post("logout", [LoginController::class, 'logout']);
+Route::post("login",    [LoginController::class, 'login']);
+Route::post("register", [LoginController::class, 'register']);
+Route::middleware('auth:sanctum')->post("logout",   [LoginController::class, 'logout']);

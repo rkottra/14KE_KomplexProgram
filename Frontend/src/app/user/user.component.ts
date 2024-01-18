@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserModel } from '../user-model';
-import { UserService } from '../user.service';
+import { UserModel } from '../models/user-model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -14,12 +14,16 @@ export class UserComponent {
       password :"123"
     };
 
-    constructor (private szerviz:UserService) {
+    constructor (public szerviz:UserService) {
 
     }
 
     login() {
       this.szerviz.login(this.user);
+    }
+
+    logout() {
+      this.szerviz.logout(this.user);
     }
 
 }

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TermekModel } from '../termek-model';
+import { TermekModel } from '../models/termek-model';
 
 @Component({
   selector: 'app-termek-urlap',

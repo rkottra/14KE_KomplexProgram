@@ -47,11 +47,11 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="funkcioColumn">
+    <ng-container matColumnDef="funkcioColumn" >
         <th mat-header-cell *matHeaderCellDef>  </th>
-        <td mat-cell *matCellDef="let element"> 
-            <button mat-raised-button (click)="updateClick(element)">Módosítás</button>
-            <button mat-raised-button color="primary" (click)="deleteClick(element)">Törlés</button>
+        <td mat-cell *matCellDef="let element" > 
+            <button *ngIf="this.userSzerviz.isUserLoggedIn()" mat-raised-button (click)="updateClick(element)">Módosítás</button>
+            <button *ngIf="this.userSzerviz.isUserLoggedIn() && this.userSzerviz.hasAbilities('delete')" mat-raised-button color="primary" (click)="deleteClick(element)">Törlés</button>
         </td>
     </ng-container>
 
@@ -60,4 +60,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<button mat-raised-button (click)="insertClick()">Új termék</button>
+<button *ngIf="this.userSzerviz.isUserLoggedIn()" mat-raised-button (click)="insertClick()">Új termék</button>

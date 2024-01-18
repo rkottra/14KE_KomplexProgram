@@ -4,9 +4,10 @@ import { MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialo
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { TermekModel } from '../termek-model';
+import { TermekModel } from '../models/termek-model';
 import { TermekUrlapComponent } from '../termek-urlap/termek-urlap.component';
-import { TermekService } from '../termek.service';
+import { TermekService } from '../services/termek.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: "dialogYesNoQuestion",
@@ -53,7 +54,8 @@ export class TermekListaComponent {
     
     constructor(private szerviz:TermekService, 
                 private _snackBar: MatSnackBar, 
-                public dialog: MatDialog)
+                public dialog: MatDialog,
+                public userSzerviz:UserService)
     {
         this.szerviz.listTermekek().subscribe(
           (dataFromBackend) => {

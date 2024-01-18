@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Termek;
 use App\Http\Requests\StoreTermekRequest;
 use App\Http\Requests\UpdateTermekRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TermekController extends Controller
 {
@@ -21,14 +22,19 @@ class TermekController extends Controller
      */
     public function store(StoreTermekRequest $request)
     {
-        $termek = new Termek();
-        
-        $termek->nev        = $request->nev;
-        $termek->nettoAr    = $request->nettoAr;
-        $termek->afa        = $request->afa;
-        $termek->kepUrl     = $request->kepUrl;
-        $termek->save();
-        return $termek;
+       /* if (Auth::user()->tokenCan("insert"))
+        {*/
+            $termek = new Termek();
+            
+            $termek->nev        = $request->nev;
+            $termek->nettoAr    = $request->nettoAr;
+            $termek->afa        = $request->afa;
+            $termek->kepUrl     = $request->kepUrl;
+            $termek->save();
+            return $termek;
+        /*} else {
+            return response("Nincs jogod hozzá", 404);
+        }*/
 
     }
 

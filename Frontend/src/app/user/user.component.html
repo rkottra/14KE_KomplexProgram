@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset *ngIf="!this.szerviz.isUserLoggedIn()">
     <legend>Login</legend>
 
     <label>Username:</label>
@@ -7,4 +7,11 @@
     <input type="passowrd" [(ngModel)]="user.password" />
 
     <button mat-raised-button color="primary" (click)="login()">Login</button>
+</fieldset>
+
+
+<fieldset *ngIf="this.szerviz.isUserLoggedIn()">
+    <legend>Logout</legend>
+
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
 </fieldset>
