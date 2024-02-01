@@ -1,3 +1,5 @@
+import { CategoryModel } from "./category-model";
+
 export interface ProductModel {
     id: number;
     name: string;
@@ -5,4 +7,6 @@ export interface ProductModel {
     tax: number;
     url: string;
     count:number;
-  }
+    category_id:number;
+    category:CategoryModel;
+}

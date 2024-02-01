@@ -16,5 +16,17 @@ class CategorySeeder extends Seeder
         $category = new Category();
         $category->name = "nincs";
         $category->save();
+
+        $category = new Category();
+        $category->name = "gyümölcsök";
+        $category->save();
+
+        $category = new Category();
+        $category->name = "zöldségek";
+        $category->save();
+
+        $category = new Category();
+        $category->name = "autók";
+        $category->save();
     }
 }

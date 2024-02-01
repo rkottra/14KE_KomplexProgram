@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductModel } from '../models/product-model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CategoryModel } from '../models/category-model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,15 @@ export class TermekService {
         }
       )*/
     }
+
+  public listKategoriak():Observable<CategoryModel[]> {
+    let token = sessionStorage.getItem("token");
+    return this.backend
+      .get<CategoryModel[]>('http://localhost:8000/api/kategoria', {headers: {
+          "Authorization": "Bearer "+token
+        }
+      })
+  }
 
   deleteTermek(termek:ProductModel):Observable<boolean> {
     let token = sessionStorage.getItem("token");

@@ -10,6 +10,7 @@ import { TermekService } from '../services/termek.service';
 import { UserService } from '../services/user.service';
 import { MatInput } from '@angular/material/input';
 import { MatSort } from '@angular/material/sort';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: "dialogYesNoQuestion",
@@ -47,42 +48,83 @@ export class TermekListaComponent {
                     = new MatTableDataSource<ProductModel>();
 
     public displayedColumns: string[] = ['id', 'name', 
-            'price', 'count', 'sumPrice',
+            'price', 'category.name',//'count', 'sumPrice',
             'url', 'functions'];
 
     @ViewChild(MatPaginator) paginator: any;
     @ViewChild(MatInput) filterInput: any;
     @ViewChild(MatSort) sort: any;
 
+    public keresoKifejezes:string = "";
+
+    ngOnInit(): void {
+      this.route.params.subscribe(
+        (params) =>{
+          if (params != null) {
+            this.keresoKifejezes = params['filter'];
+          }
+        }
+      );
+    }
 
     constructor(private szerviz:TermekService, 
                 private _snackBar: MatSnackBar, 
                 public dialog: MatDialog,
-                public userSzerviz:UserService)
+                public userSzerviz:UserService,
+                private route: ActivatedRoute)
     {
+        
         this.szerviz.listTermekek().subscribe(
           (dataFromBackend) => {
-            this.adatforras           = new MatTableDataSource<ProductModel>(dataFromBackend)
+
+           /* let segedList = new Array();
+            for (let index = 0; index < dataFromBackend.length; index++) {
+              const element = dataFromBackend[index];
+              let seged =  {
+                id    : element.id,
+                name  : element.name,
+                price : element.price,
+                url   : element.url,
+              };
+              segedList.push(seged);
+              
+            }
+            this.adatforras           = new MatTableDataSource<ProductModel>(segedList);
+            */
             
-            this.adatforras.paginator = this.paginator;      
+            this.adatforras           = new MatTableDataSource<ProductModel>(dataFromBackend);
+            
+            this.adatforras.paginator = this.paginator;  
+            this.adatforras.sortingDataAccessor = (item:ProductModel, property) => {
+              switch(property) {
+                case 'category.name': return item.category.name;
+                case 'price': return item.price;
+                case 'id': return item.id;
+                default: return item.name;
+              }
+            };
+
             this.adatforras.sort      = this.sort;
-/*            this.adatforras.filterPredicate = function (record,filter) {
-              return record.nev.indexOf(filter) != -1 || record.id.toString().indexOf(filter) != -1;
-            }*/
+            
+            this.applyFilter();
+
           }
         );
     }
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.adatforras.filter = filterValue.trim().toLowerCase();
+    applyFilter() {
+      
+      this.adatforras.filterPredicate = 
+        (data: ProductModel, filter: string) =>
+          data.category.name.indexOf(filter) != -1 ||
+          data.name.indexOf(filter) != -1 ||
+          data.price.toString().indexOf(filter) != -1 ;
+
+      this.adatforras.filter = this.keresoKifejezes.trim().toLowerCase();
     }
-  
 
     ngAfterViewInit () {
-      
       this.paginator._intl.itemsPerPageLabel="Oldalanként hány elem jelenjen meg";
-      
     }
 
     updateClick(element:ProductModel) {
@@ -111,9 +153,6 @@ export class TermekListaComponent {
                   this.szerviz.listTermekek().subscribe(
                     (dataFromBackend) => {
                       this.adatforras.data = dataFromBackend;
-
-/*                      this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
-                      this.adatforras.paginator = this.paginator;*/
                     }
                   );
     
@@ -146,9 +185,6 @@ export class TermekListaComponent {
                     this.szerviz.listTermekek().subscribe(
                       (dataFromBackend) => {
                         this.adatforras.data = dataFromBackend;
-                        //this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
-                        //this.adatforras.paginator = this.paginator;
-                        //this.adatforras.filter = (this.filterInput as MatInput).value;
                       }
                     );
       
@@ -192,10 +228,6 @@ export class TermekListaComponent {
                   this.szerviz.listTermekek().subscribe(
                     (dataFromBackend) => {
                       this.adatforras.data = dataFromBackend;
-
-/*                      this.adatforras = new MatTableDataSource<TermekModel>(dataFromBackend)
-                      this.adatforras.paginator = this.paginator;
-                      this.adatforras.filter = (this.filterInput as MatInput).value;*/
                     }
                   );
     

@@ -29,6 +29,7 @@ class ProductController extends Controller
             $termek->name       = $request->name;
             $termek->price      = $request->price;
             $termek->tax        = $request->tax;
+            $termek->category_id= $request->category_id;
             $termek->url        = $request->url;
             $termek->save();
             return $termek;
@@ -54,6 +55,7 @@ class ProductController extends Controller
         $termek->name       = $request->name;
         $termek->price      = $request->price;
         $termek->tax        = $request->tax;
+        $termek->category_id= $request->category_id;
         $termek->url        = $request->url;
         $termek->save();
         return $termek;
