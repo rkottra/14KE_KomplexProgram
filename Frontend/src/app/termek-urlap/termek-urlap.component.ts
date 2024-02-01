@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TermekModel } from '../models/termek-model';
+import { ProductModel } from '../models/product-model';
 
 @Component({
   selector: 'app-termek-urlap',
@@ -9,9 +9,9 @@ import { TermekModel } from '../models/termek-model';
 })
 export class TermekUrlapComponent {
   
-  public product:TermekModel;
+  public product:ProductModel;
 
-  constructor(@Inject(MAT_DIALOG_DATA) bármi: TermekModel)
+  constructor(@Inject(MAT_DIALOG_DATA) bármi: ProductModel)
   {
     this.product = bármi;
   }

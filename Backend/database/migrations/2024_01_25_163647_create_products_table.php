@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('termeks', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string("nev");
-            $table->float("nettoAr");
-            $table->integer("afa")->default('27');
-            $table->string("kepUrl");
+            $table->string("name");
+            $table->float("price");
+            $table->integer("tax")->default('27');
+            $table->string("url");
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('termeks');
+        Schema::dropIfExists('products');
     }
 };

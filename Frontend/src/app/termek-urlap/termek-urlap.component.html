@@ -1,9 +1,15 @@
 <div>
     <label for="nev">Név:</label>
-    <input id="nev" type="text" [(ngModel)]="product.nev" /><br/>
-    <input type="text" [(ngModel)]="product.nettoAr" /><br/>
-    <input type="text" [(ngModel)]="product.afa" /><br/>
-    <input type="text" [(ngModel)]="product.kepUrl" /><br/>
+    <input id="nev" type="text" [(ngModel)]="product.name" /><br/>
+    
+    <label for="nev">Ár:</label>
+    <input type="text" [(ngModel)]="product.price" /><br/>
+
+    <label for="nev">Áfa:</label>
+    <input type="text" [(ngModel)]="product.tax" /><br/>
+
+    <label for="nev">Kép url:</label>
+    <input type="text" [(ngModel)]="product.url" /><br/>
 
 
     <div mat-dialog-actions>

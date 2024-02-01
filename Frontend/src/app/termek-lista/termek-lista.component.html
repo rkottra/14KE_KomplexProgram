@@ -1,53 +1,59 @@
+<mat-form-field>
+    <mat-label>Keresés</mat-label>
+    <input matInput (keyup)="applyFilter($event)" 
+        placeholder="Ex. ium" #input>
+</mat-form-field>
+
 <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
 </mat-paginator>
 
-<table mat-table [dataSource]="adatforras">
-    <ng-container matColumnDef="idColumn">
-        <th mat-header-cell *matHeaderCellDef> Id. </th>
+<table mat-table matSort [dataSource]="adatforras">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="nevColumn">
-        <th mat-header-cell *matHeaderCellDef> Név </th>
-        <td mat-cell *matCellDef="let element"> {{element.nev}} </td>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Név </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="arColumn">
-        <th mat-header-cell *matHeaderCellDef> Ár </th>
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ár </th>
         <td mat-cell *matCellDef="let element"> 
-            {{element.nettoAr}}.-Ft + {{element.afa}}% áfa =
-             {{element.nettoAr*(1+(element.afa/100.0))}}.-Ft
+            {{element.price}}.-Ft + {{element.tax}}% áfa =
+             {{element.price*(1+(element.tax/100.0))}}.-Ft
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="dbColumn">
+    <ng-container matColumnDef="count">
         <th mat-header-cell *matHeaderCellDef> db </th>
         <td mat-cell *matCellDef="let element"> 
             <!--<input type="number" [(ngModel)]="darabok[element.id]" /> -->
-            <input type="number" [(ngModel)]="element.darab" min="0" max="1000"/>
+            <input type="number" [(ngModel)]="element.count" min="0" max="1000"/>
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="kepColumn">
+    <ng-container matColumnDef="url">
         <th mat-header-cell *matHeaderCellDef> Kép </th>
         <td mat-cell *matCellDef="let element"> 
-            <img src="{{element.kepUrl}}" alt="" style="width:100px"/> 
+            <img src="{{element.url}}" alt="" style="width:100px"/> 
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="osszArColumn">
+    <ng-container matColumnDef="sumPrice">
         <th mat-header-cell *matHeaderCellDef> Összesen </th>
         <td mat-cell *matCellDef="let element"> 
             <!--{{element.nettoAr*(1+(element.afa/100.0)) 
                 * darabok[element.id]}} .-Ft-->
-            {{element.nettoAr*(1+(element.afa/100.0)) 
-                * element.darab}} .-Ft
+            {{element.price*(1+(element.tax/100.0)) 
+                * element.count}} .-Ft
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="funkcioColumn" >
+    <ng-container matColumnDef="functions" >
         <th mat-header-cell *matHeaderCellDef>  </th>
         <td mat-cell *matCellDef="let element" > 
             <button *ngIf="this.userSzerviz.isUserLoggedIn()" mat-raised-button (click)="updateClick(element)">Módosítás</button>

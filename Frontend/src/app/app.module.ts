@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule }   from '@angular/material/table';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import { MatSnackBarModule} from '@angular/material/snack-bar';
-import { MatButtonModule} from '@angular/material/button';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+
 
 import { TermekListaComponent } from './termek-lista/termek-lista.component';
 import { TermekUrlapComponent } from './termek-urlap/termek-urlap.component';
@@ -29,11 +33,16 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
     MatSnackBarModule,
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSortModule,
+
     HttpClientModule,
     FormsModule
   ],

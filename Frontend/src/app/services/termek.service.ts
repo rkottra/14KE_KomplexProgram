@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TermekModel } from '../models/termek-model';
+import { ProductModel } from '../models/product-model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,17 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class TermekService {
 
-//  public termekek: TermekModel[] = [];
-
-
   private url:string = 'http://localhost:8000/api/termek';
 
   constructor(private backend:HttpClient) { }
 
-  public listTermekek():Observable<TermekModel[]> {
+  public listTermekek():Observable<ProductModel[]> {
     let token = sessionStorage.getItem("token");
     return this.backend
-          .get<TermekModel[]>(this.url,{headers: {
+          .get<ProductModel[]>(this.url,{headers: {
              "Authorization": "Bearer "+token
             }
           })
@@ -30,7 +27,7 @@ export class TermekService {
       )*/
     }
 
-  deleteTermek(termek:TermekModel):Observable<boolean> {
+  deleteTermek(termek:ProductModel):Observable<boolean> {
     let token = sessionStorage.getItem("token");
 
       return this.backend.delete<boolean>(this.url+"/"+termek.id,{headers: {
@@ -39,19 +36,19 @@ export class TermekService {
       });
   }
 
-  updateTermek(termek:TermekModel):Observable<TermekModel> {
+  updateTermek(termek:ProductModel):Observable<ProductModel> {
     let token = sessionStorage.getItem("token");
 
-    return this.backend.put<TermekModel>(this.url+"/"+termek.id, termek, {headers: {
+    return this.backend.put<ProductModel>(this.url+"/"+termek.id, termek, {headers: {
       "Authorization": "Bearer "+token
      }
     });
   }
 
-  insertTermek(termek:TermekModel):Observable<TermekModel> {
+  insertTermek(termek:ProductModel):Observable<ProductModel> {
     let token = sessionStorage.getItem("token");
 
-    return this.backend.post<TermekModel>(this.url, termek, {headers: {
+    return this.backend.post<ProductModel>(this.url, termek, {headers: {
       "Authorization": "Bearer "+token
      }
     });

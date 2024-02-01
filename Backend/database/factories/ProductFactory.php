@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Termek>
  */
-class TermekFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,10 @@ class TermekFactory extends Factory
     public function definition(): array
     {
         return [
-            "nev" => fake()->word(2),
-            "nettoAr" => fake()->numberBetween(1000,10000),
-            "afa" => fake()->randomElement([0,5,27]),
-            "kepUrl" => fake()->imageUrl(640,480,'product'),
+            "name" => fake()->word(2),
+            "price" => fake()->numberBetween(1000,10000),
+            "tax" => fake()->randomElement([0,5,27]),
+            "url" => fake()->imageUrl(640,480,'product'),
         ];
     }
 }
